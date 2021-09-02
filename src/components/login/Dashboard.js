@@ -23,12 +23,12 @@ class Login extends Component {
 
     handleLogout = event => {
         const { formData } = this.state;
-            event.preventDefault();
-            localStorage.removeItem('username');
-            localStorage.removeItem('token');
-            window.location = '/';
+        event.preventDefault();
+        localStorage.removeItem('username');
+        localStorage.removeItem('token');
+        window.location = '/';
     }
-    
+
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -42,13 +42,25 @@ class Login extends Component {
         });
     }
 
+
+
     render() {
         const { errors, formSubmitted } = this.state;
+        const username = localStorage.getItem('username');
+
+        var labelbutton;
+        if (username) {
+            labelbutton = <ControlLabel>Hello {username}</ControlLabel>;
+        } else {
+            window.location = '/';
+        }
         return (
             <div className="Login">
                 <Row>
+
                     <form controlId="formisian" autoComplete="off">
-                            <ControlLabel>Hello {localStorage.getItem('username')}</ControlLabel><br></br>
+                        {labelbutton}<br></br>
+                        {/* <ControlLabel>Hello {username}</ControlLabel><br></br> */}
                         <Button type="button" bsStyle="danger" onClick={this.handleLogout}>LogOut</Button>&nbsp;
                     </form>
                 </Row>
